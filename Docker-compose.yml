@@ -32,7 +32,7 @@ services:
       DB_PASSWORD: 1234
       DB_NAME: a7
       JWT_SECRET: NTC&&1234
-      CHOKIDAR_USEPOLLING:true
+      CHOKIDAR_USEPOLLING: true
     networks: ["app-network"]
   
   # phpmyadmin
@@ -50,7 +50,7 @@ services:
     networks: ["app-network"]
 
   # mysql
-  phpmyadmin:
+  mysql:
     image: mysql:8.0
     container_name: MYSQL_Container
     ports: ["3307:3306"]
@@ -61,3 +61,7 @@ services:
       MYSQL_ROOT_PASSWORD: 1234
       MYSQL_DATABASE: a7
     networks: ["app-network"]
+
+networks:
+  app-network:
+    driver: bridge
