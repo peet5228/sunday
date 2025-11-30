@@ -6,7 +6,7 @@ const {verifyToken,requireRole} = require('../../middleware/authMiddleware')
 // API สำหรับ Get ข้อมูล
 router.get('/eva',verifyToken,requireRole('ฝ่ายบุคลากร'),async (req,res) => {
     try{
-        const [rows] = await db.query(`select * from tb_memebr where role='ผู้รับการประเมินผล' order by id_member desc`)
+        const [rows] = await db.query(`select * from tb_member where role='ผู้รับการประเมินผล' order by id_member desc`)
         res.json(rows)
     }catch(err){
         console.error("Error Get",err)
@@ -16,7 +16,7 @@ router.get('/eva',verifyToken,requireRole('ฝ่ายบุคลากร'),a
 
 router.get('/commit',verifyToken,requireRole('ฝ่ายบุคลากร'),async (req,res) => {
     try{
-        const [rows] = await db.query(`select * from tb_memebr where role='กรรมการประเมิน' order by id_member desc`)
+        const [rows] = await db.query(`select * from tb_member where role='กรรมการประเมิน' order by id_member desc`)
         res.json(rows)
     }catch(err){
         console.error("Error Get",err)
@@ -26,7 +26,7 @@ router.get('/commit',verifyToken,requireRole('ฝ่ายบุคลากร'
 
 router.get('/',verifyToken,requireRole('ฝ่ายบุคลากร'),async (req,res) => {
     try{
-        const [rows] = await db.query(`select * from tb_memebr order by id_member desc`)
+        const [rows] = await db.query(`select * from tb_member order by id_member desc`)
         res.json(rows)
     }catch(err){
         console.error("Error Get",err)
@@ -38,7 +38,7 @@ router.get('/',verifyToken,requireRole('ฝ่ายบุคลากร'),asyn
 router.get('/:id_member',verifyToken,requireRole('ฝ่ายบุคลากร'),async (req,res) => {
     try{
         const {id_member} = req.params
-        const [rows] = await db.query(`select * from tb_memebr where id_member='${id_member}'`)
+        const [rows] = await db.query(`select * from tb_member where id_member='${id_member}'`)
         if(rows.length === 0) return res.status(404).json({message:'ไม่พบข้อมูลจากไอดีนี้'})
         res.json(rows)
     }catch(err){
