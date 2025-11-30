@@ -8,8 +8,11 @@
                                 <th class="border text-center">ลำดับ</th>
                                 <th class="border text-center">ชื่อ</th>
                                 <th class="border text-center">นามสกุล</th>
+                                <th class="border text-center">รอบการประเมิน</th>
+                                <th class="border text-center">วันที่ออกแบบประเมิน</th>
+                                <th class="border text-center">คะแนนประเมิน</th>
                                 <th class="border text-center">สถานะการประเมิน</th>
-                                <th class="border text-center">ตรวจสอบ</th>
+                                <th class="border text-center">ประเมิน</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -17,9 +20,13 @@
                                 <td class="text-center border">{{ index+1 }}</td>
                                 <td class="text-center border">{{ items.first_name }}</td>
                                 <td class="text-center border">{{ items.last_name }}</td>
+                                <td class="text-center border">รอบที่ {{ items.round_sys }} ปี {{ items.year_sys }}</td>
+                                <td class="text-center border">{{ items.day_eva }}</td>
+                                <td class="text-center border">{{ items.total_eva }} คะแนน</td>
                                 <td class="text-center border">{{ items.status_eva === 1 ? 'ประเมินตนเอง' : items.status_eva === 2 ? 'รอกรรมการประเมิน' : 'ประเมินเเสร็จสิ้น' }}</td>
                                 <td class="text-center border">
-                                    <v-btn class="text-white" size="small" color="blue" @click="add(items.id_eva)">ตรวจสอบ</v-btn>
+                                    <v-btn v-if="items.status_commit === 'n'" class="text-white" size="small" color="blue" @click="add(items.id_eva)">ประเมิน</v-btn>
+                                    <v-btn v-else class="text-white" size="small" color="green">ประเมินแล้ว</v-btn>
                                 </td>
                             </tr>
                             <tr v-if="result.length === 0">
@@ -50,10 +57,8 @@ const fetch = async () => {
         console.error("Error Fetching",err)
     }
 }
-
-
 const add = (id_eva:number) => {
-    router.push({path:`/Detail_eva/${id_eva}`})
+    router.push({path:`/Save_score/${id_eva}`})
 }
 
 onMounted(fetch)
