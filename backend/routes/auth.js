@@ -23,7 +23,7 @@ router.post('/regis',async (req,res) => {
     try{
         const {first_name,last_name,email,username,password,role} = req.body
         const [rows] = await db.query(`insert into tb_member (first_name,last_name,email,username,password,role) values (?,?,?,?,?,?)`,[first_name,last_name,email,username,password,role])
-        res.josn(rows)
+        res.json({message:'POST Mebmer'})
     }catch(err){
         console.error("Register Failed",err)
         res.status(500).json({message:'Register Failed'})
