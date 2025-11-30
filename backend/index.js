@@ -20,6 +20,9 @@ app.use('/api/auth',auth)
 const profile = require('./routes/profile')
 app.use('/api/profile',profile)
 
+const dashboard = require('./routes/dashboard')
+app.use('/api/dashboard',dashboard)
+
 // Staff ============================================================
 const member = require('./routes/Staff/member')
 app.use('/api/Staff/member',member)
@@ -44,6 +47,9 @@ app.use('/api/Staff/List',List)
 
 const status = require('./routes/Staff/status')
 app.use('/api/Staff/status',status)
+
+const document = require('./routes/Staff/document')
+app.use('/api/Staff/document',document)
 
 //eva
 const me = require('./routes/Eva/me')

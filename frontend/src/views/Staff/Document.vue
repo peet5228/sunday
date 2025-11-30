@@ -9,7 +9,7 @@
                                 <v-text-field v-model="name_doc"  label="ชื่อเอกสาร"></v-text-field>
                             </v-col>
                             <v-col cols="12" md="12">
-                                <v-file-input v-model="file" accept=".dox,.docx,.image/*" label="ไฟล์" />
+                                <v-file-input v-model="file" accept=".txt,.dox,.docx,.image/*" label="ไฟล์" />
                             </v-col>
                             <v-col cols="12" md="6" class="text-center"><v-btn type="submit" color="blue" class="w-full text-white">บันทึก</v-btn></v-col>
                             <v-col cols="12" md="6" class="text-center"><v-btn type="reset" color="error" class="w-full text-white">ยกเลิก</v-btn></v-col>
@@ -79,7 +79,7 @@ const saveMember = async () =>{
        if(!name_doc.value || !file.value) return alert('กรุณากรอกชื่อเอกสารและแนบเอกสาร')
         formData.append('name_doc',name_doc.value)
         formData.append('file',file.value)
-        await axios.post(`${api}/document`,formData)
+        await axios.post(`${api}/document`,formData,{headers: {Authorization : `Bearer ${token}`}})
         alert('ทำรายการสำเร็จ')
         await fetch()
     }catch(err){
