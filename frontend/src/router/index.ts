@@ -5,6 +5,8 @@ import UserLayout from '@/components/UserLayout.vue'
 
 //eva
 import Evaluatee from '@/views/Evaluatee/index.vue'
+import Edit_eva from '@/views/Evaluatee/Edit_eva.vue'
+import Selfeva from '../views/Evaluatee/Selfeva.vue'
 
 // Staff
 import Index from '@/views/Staff/index.vue'
@@ -41,6 +43,16 @@ const router = createRouter({
           path: '/Evaluatee',
           name: 'Evaluatee',
           component: Evaluatee,
+        },
+        {
+          path: '/Edit_eva',
+          name: 'Edit_eva',
+          component: Edit_eva,
+        },
+        {
+          path: '/Selfeva',
+          name: 'Selfeva',
+          component: Selfeva,
         },
       ]
     },
