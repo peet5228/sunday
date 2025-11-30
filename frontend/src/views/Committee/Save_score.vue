@@ -91,7 +91,7 @@ const saveScore = async () =>{
     formData.append('scores',JSON.stringify(allScore))
     formData.append('detail_commit',detail_commit.value)
     try{
-        await axios.post(`http://localhost:3001/api/Eva/selfeva/${id_eva}`,formData,{
+        await axios.post(`http://localhost:3001/api/Commit/save_score/${id_eva}`,formData,{
             headers:{Authorization:`Bearer ${token}`}
         })
         alert('บันทึกคะแนนสำเร็จ')

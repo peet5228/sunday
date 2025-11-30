@@ -62,12 +62,16 @@ router.post('/:id_eva',verifyToken,async (req,res) =>{
             )
         }
         const [[sumRow]] = await db.query(
-            `select coalesce(sum(score_member*(select i.point_indicate from tb_indicate i where i.id_indicate=d.id_indicate)),0) as total
+            `select coalesce(sum(score_commit*(select i.point_indicate from tb_indicate i where i.id_indicate=d.id_indicate)),0) as total
             from tb_evadetail d where id_eva=?`,[id_eva]
         )
         await db.query(
-            `update tb_eva set total_eva=?,status_eva=? where id_eva=?`,
-            [sumRow.total,2,id_eva]
+            `update tb_eva set total_commit=? where id_eva=?`,
+            [sumRow.total,id_eva]
+        )
+        await db.query(
+            `update tb_commit set detail_commit=?,status_commit=? where id_member=? and id_eva=?`,
+            [detail_commit,'y',id_member,id_eva]
         )
         res.json({message:'บันทึกสำเร็จ'})
     }catch(err){
