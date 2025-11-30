@@ -50,6 +50,10 @@ const detail_commit = ref('')
 const token = localStorage.getItem('token')
 const user = ref({})
 const topics = ref([])
+const openFile = (filename:string) =>{
+    const url = `http://localhost:3001/uploads/evadetail/${filename}`
+    window.open(url,'_blank')
+}
 const fetchUser = async () =>{
     try{
         const res = await axios.get(`http://localhost:3001/api/Commit/save_score/${id_eva}`,{
