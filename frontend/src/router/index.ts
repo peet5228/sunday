@@ -3,6 +3,12 @@ import RegisterForm from '@/RegisterForm.vue'
 import LoginForm from '@/LoginForm.vue'
 import UserLayout from '@/components/UserLayout.vue'
 
+//commit
+import Committee from '@/views/Committee/index.vue'
+import Detail_eva from '@/views/Committee/Detail_eva.vue'
+import Show_eva from '@/views/Committee/Show_eva.vue'
+import Save_score from '@/views/Committee/Save_score.vue'
+
 //eva
 import Evaluatee from '@/views/Evaluatee/index.vue'
 import Edit_eva from '@/views/Evaluatee/Edit_eva.vue'
@@ -43,6 +49,34 @@ const router = createRouter({
     {
       path: '/',
       redirect:'/login',
+    },
+
+    //commit
+    {
+      path: '/Committee',
+      component: UserLayout,
+      children:[
+        {
+          path: '/Committee',
+          name: 'Committee',
+          component: Committee,
+        },
+        {
+          path: '/Detail_eva/:id_eva',
+          name: 'Detail_eva',
+          component: Detail_eva,
+        },
+        {
+          path: '/Show_eva',
+          name: 'Show_eva',
+          component: Show_eva,
+        },
+        {
+          path: '/Save_score/:id_eva',
+          name: 'Save_score',
+          component: Save_score,
+        },
+      ]
     },
 
     //eva
