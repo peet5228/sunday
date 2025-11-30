@@ -1,11 +1,10 @@
 <template>
-    <v-container fluid class="fill-height">
-        <v-row justify="center" align="center">
-            <v-col cols="12" md="8" lg="6">
+    <v-container>
+        <v-row>
+            <v-col cols="12">
                 <v-form @submit.prevent="saveMember">
                     <v-card class="pa-4">
-                        <h1 class="text-h5 text-center font-weight-bold text-maroon">สมัครสมาชิก</h1>
-                        <p class="text-center text-sm mt-2">ระบบประเมินบุคลากรวิทยาลัยเทคนิคน่าน</p>
+                        <h1 class="text-h5 text-center font-weight-bold text-maroon">แก้ไขข้อมูลส่วนตัว</h1>
                         <hr class="mt-4">
                         <v-row class="mt-4">
                             <v-col cols="12" md="6">
@@ -21,17 +20,16 @@
                                 <v-text-field v-model="form.username" :error-messages="error.username" label="ชื่อผู้ใช้"></v-text-field>
                             </v-col>
                             <v-col cols="12" md="6">
-                                <v-text-field v-model="form.password" type="password" :error-messages="error.password" label="รหัสผ่าน"></v-text-field>
+                                <v-text-field v-model="newPassword" type="password" :error-messages="error.newPassword" label="รหัสผ่าน"></v-text-field>
                             </v-col>
                             <v-col cols="12" md="6">
                                 <v-text-field v-model="confirmPassword" type="password" :error-messages="error.confirmPassword" label="ยืนยันรหัสผ่าน"></v-text-field>
                             </v-col>
                             <v-col cols="12">
-                                <v-select v-model="form.role" :items="roles" item-title="text" item-value="value" :error-messages="error.role" label="เลือกประเภทสมาชิก"></v-select>
+                                <v-alert>{{ form.role }}</v-alert>
                             </v-col>
                             <v-col cols="12" class="text-center">
-                                <v-btn type="submit" class="btn-maroon text-white">สมัคร</v-btn>
-                                <p class="text-sm mt-2">มีบัญชีอยู่แล้ว? <router-link to="/login" class="text-maroon"><u>เข้าสู่ระบบ</u></router-link></p>
+                                <v-btn type="submit" class="btn-maroon text-white">แก้ไข</v-btn>
                             </v-col>
                         </v-row>
                     </v-card>
@@ -43,8 +41,9 @@
 
 <script setup lang="ts">
 import axios from 'axios';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+const newPassword = ref('')
 const router = useRouter()
 const form = ref({
     first_name:'',
@@ -56,11 +55,6 @@ const form = ref({
 })
 const error = ref<Record<string,string>>({})
 const confirmPassword = ref('')
-const roles = [
-    {text:'ฝ่ายบุคลากร',value:'ฝ่ายบุคลากร'},
-    {text:'กรรมการประเมิน',value:'กรรมการประเมิน'},
-    {text:'ผู้รับการประเมินผล',value:'ผู้รับการประเมินผล'},
-]
 const emailReget = /^[^\s]+@[^\s]+\.[^\s]{2,}$/i
 function vaildateForm(){
     error.value = {}
@@ -71,23 +65,50 @@ function vaildateForm(){
     else if(!emailReget.test(f.email.trim()))error.value.email='รูปแบบอีเมลไม่ถูกต้อง'
     if(!f.username.trim())error.value.username='กรุณากรอกชื่อ'
     else if(f.username.trim().length < 4)error.value.username='ต้องมีอย่างน้อย 4 ตัวอักษร'
-    if(!f.password.trim())error.value.password='กรุณากรอกชื่อ'
-    else if(f.password.trim().length < 6)error.value.password='ต้องมีอย่างน้อย 6 ตัวอักษร'
-    if(!confirmPassword.value.trim())error.value.confirmPassword='กรุณายืนยันรหัสผ่าน'
-    else if(confirmPassword.value.trim() != f.password.trim())error.value.confirmPassword='รหัสผ่านไม่ตรงกัน'
+    if(newPassword.value.trim()){
+        if(newPassword.value.trim().length < 6)error.value.newPassword='ต้องมีอย่างน้อย 6 ตัวอักษร'
+        if(!confirmPassword.value.trim())error.value.confirmPassword='กรุณายืนยันรหัสผ่าน'
+        else if(confirmPassword.value.trim() != newPassword.value.trim())error.value.confirmPassword='รหัสผ่านไม่ตรงกัน'
+    }
     if(!f.role.trim())error.value.role='กรุณาเลือกประเภทสมาชิก'
     return Object.keys(error.value).length === 0
 }
-const saveMember = async () =>{
-    if(!vaildateForm())return
+const token = localStorage.getItem('token')
+const fetchUser = async () =>{
     try{
-        await axios.post(`http://localhost:3001/api/auth/regis`,form.value)
-        alert('สมัครสำเร็จ')
-        router.push({path:'/login'})
+        const res = await axios.get(`http://localhost:3001/api/Eva/me`,{
+            headers:{Authorization:`Bearer ${token}`}
+        })
+        form.value = res.data
+        confirmPassword.value = ''
+        newPassword.value = ''
     }catch(err){
-        console.error('สมัครไม่สำเร็จ',err)
+        console.error('โหลดม่สำเร็จ',err)
     }
 }
+const saveMember = async () =>{
+    if(!vaildateForm())return
+    const f = form.value
+    const usePassword = newPassword.value.trim() ? newPassword.value.trim() : f.password
+    const payload = {
+        first_name:f.first_name,
+        last_name:f.last_name,
+        email:f.email,
+        username:f.username,
+        password:usePassword,
+    }
+    try{
+        await axios.put(`http://localhost:3001/api/Eva/me`,payload,{
+            headers:{Authorization:`Bearer ${token}`}
+        })
+        alert('แก้ไขสำเร็จ')
+        localStorage.removeItem('token')
+        router.push({path:'/login'})
+    }catch(err){
+        console.error('แก้ไขไม่สำเร็จ',err)
+    }
+}
+onMounted(fetchUser)
 </script>
 
 <style scoped>
