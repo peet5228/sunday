@@ -30,6 +30,21 @@ app.use('/api/Staff/topic',topic)
 const indicate = require('./routes/Staff/indicate')
 app.use('/api/Staff/indicate',indicate)
 
+const round_eva = require('./routes/Staff/round_eva')
+app.use('/api/Staff/round_eva',round_eva)
+
+const eva = require('./routes/Staff/eva')
+app.use('/api/Staff/eva',eva)
+
+const commit = require('./routes/Staff/commit')
+app.use('/api/Staff/commit',commit)
+
+const List = require('./routes/Staff/List')
+app.use('/api/Staff/List',List)
+
+const status = require('./routes/Staff/status')
+app.use('/api/Staff/status',status)
+
 //eva
 const me = require('./routes/Eva/me')
 app.use('/api/Eva/me',me)
