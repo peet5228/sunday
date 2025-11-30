@@ -41,8 +41,8 @@
                         <v-btn v-else class="text-white" color="green">ประเมินแล้ว</v-btn>
                     </div>
                 </v-form>
-                <v-alert v-else-if="user.status_eva === 1" type="info">คุณยังไม่ได้กรอกแบบประเมิน</v-alert>
-                <v-alert v-else type="warning">คุณยังไม่มีแบบประเมิน</v-alert>
+                <v-alert v-else-if="user.status_eva === 1" type="info">ยังไม่ได้กรอกแบบประเมิน</v-alert>
+                <v-alert v-else type="warning">ยังไม่มีแบบประเมิน</v-alert>
             </v-col>
         </v-row>
     </v-container>

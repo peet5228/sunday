@@ -1,6 +1,6 @@
 <template>
     <v-container fluid class="py-10">
-                <h1 class="text-h5 text-center font-weight-bold text-maroon">รายชื่อผู้รับประเมินผล</h1>
+                <h1 class="text-h5 text-center font-weight-bold text-maroon">รายชื่อผู้รับการประเมินผล</h1>
                 <v-card class="pa-4">
                     <v-table class="table">
                         <thead>

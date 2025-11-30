@@ -79,7 +79,7 @@ const error = ref<Record<string,string>>({})
 function vaildateForm(){
     error.value = {}
     const f = form.value
-    if(!f.name_topic)error.value.name_topic='กรุณากรอกชื่อหัวข้อกาประเมิน'
+    if(!f.name_topic)error.value.name_topic='กรุณากรอกชื่อหัวข้อการประเมิน'
     return Object.keys(error.value).length === 0
 }
 const saveMember = async () =>{
