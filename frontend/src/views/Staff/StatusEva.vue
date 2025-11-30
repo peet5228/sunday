@@ -59,7 +59,7 @@ const fetch = async () => {
 
 const bg = (status_eva:number) => {
     if(status_eva === 1) return 'blue'
-    if(status_eva === 3) return 'warning'
+    if(status_eva === 2) return 'warning'
     if(status_eva === 3) return 'success'
 }
 
