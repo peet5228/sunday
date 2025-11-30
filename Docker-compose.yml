@@ -45,7 +45,7 @@ services:
     restart: always
     environment:
       PMA_HOST: mysql
-      PMA_USER: user
+      PMA_USER: root
       PMA_PASSWORD: 1234
     networks: ["app-network"]
 
