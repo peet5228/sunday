@@ -7,6 +7,8 @@ import UserLayout from '@/components/UserLayout.vue'
 import Evaluatee from '@/views/Evaluatee/index.vue'
 import Edit_eva from '@/views/Evaluatee/Edit_eva.vue'
 import Selfeva from '../views/Evaluatee/Selfeva.vue'
+import Check_score from '@/views/Evaluatee/Check_score.vue'
+import Check_eva from '@/views/Evaluatee/Check_eva.vue'
 
 // Staff
 import Index from '@/views/Staff/index.vue'
@@ -62,6 +64,16 @@ const router = createRouter({
           path: '/Selfeva',
           name: 'Selfeva',
           component: Selfeva,
+        },
+        {
+          path: '/Check_score',
+          name: 'Check_score',
+          component: Check_score,
+        },
+        {
+          path: '/Check_eva',
+          name: 'Check_eva',
+          component: Check_eva,
         },
       ]
     },
