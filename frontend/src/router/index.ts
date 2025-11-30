@@ -25,6 +25,7 @@ import StatusEva from '@/views/Staff/StatusEva.vue'
 import StatusCommit from '@/views/Staff/StatusCommit.vue'
 import Status2 from '@/views/Staff/Status2.vue'
 import Document from '@/views/Staff/Document.vue'
+import ScoreEva from '@/views/Staff/ScoreEva.vue'
 
 
 const router = createRouter({
@@ -151,6 +152,11 @@ const router = createRouter({
           path: '/Document',
           name: 'Document',
           component: Document,
+        },
+        {
+          path: '/ScoreEva/:id_eva',
+          name: 'ScoreEva',
+          component: ScoreEva,
         },
       ]
     },

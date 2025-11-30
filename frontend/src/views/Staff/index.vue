@@ -29,7 +29,7 @@
                                 <th class="border text-center">รอบการประเมิน</th>
                                 <th class="border text-center">วันที่ออกแบบประเมิน</th>
                                 <th class="border text-center">สถานะการประเมิน</th>
-                                <th class="border text-center">รายละเอียด</th>
+                              
                             </tr>
                         </thead>
                         <tbody>
@@ -41,9 +41,7 @@
                                 <td class="text-center border">
                                     <v-btn class="text-white" size="small" :color="bg(items.status_eva)">{{ items.status_eva === 1 ? 'ประเมินตนเอง' : items.status_eva === 2 ? 'กรรมการประเมิน' : 'ประเมินเเสร็จสิ้น' }}</v-btn>
                                 </td>
-                                <td class="text-center border">
-                                    <v-btn class="text-white" size="small" color="success" @click="add(items.id_eva)">รายละเอียด</v-btn>
-                                </td>
+                                
                             </tr>
                             <tr v-if="result.length === 0">
                                 <td class="text-center border text-gray-400" colspan="8">ไม่พบข้อมูล</td>

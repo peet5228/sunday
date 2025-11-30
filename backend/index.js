@@ -51,6 +51,9 @@ app.use('/api/Staff/status',status)
 const document = require('./routes/Staff/document')
 app.use('/api/Staff/document',document)
 
+const checkEva = require('./routes/Staff/checkEva')
+app.use('/api/Staff/checkEva',checkEva)
+
 //eva
 const me = require('./routes/Eva/me')
 app.use('/api/Eva/me',me)
